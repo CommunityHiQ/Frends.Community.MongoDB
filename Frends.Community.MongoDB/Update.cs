@@ -16,17 +16,17 @@ namespace Frends.Community.MongoDB
             public DatabaseConnection DbConnection { get; set; }
 
             /// <summary>
-            /// The filter to use for the search, in JSON
+            /// The filter to use for the search, in JSON. Note that ObjectId is not strictly valid json, but works in MongoDB.
             /// </summary>
             [DisplayName("Filter")]
-            [DefaultValue("{ 'foo':'bar', 'bar': 'foo' }")]
+            [DefaultValue("{ \"_id\": ObjectId(\"...\") }")]
             public string FilterString { get; set; }
 
             /// <summary>
             /// The values to update in the document, as JSON
             /// </summary>
             [DisplayName("Filter")]
-            [DefaultValue("{$set: {bar:'foobar'}}")]
+            [DefaultValue("{ $set: { \"bar\": \"updated\"} }")]
             public string UpdateString { get; set; }
         }
 
@@ -43,7 +43,8 @@ namespace Frends.Community.MongoDB
                                                 parameters.DbConnection.Database,
                                                 parameters.DbConnection.CollectionName,
                                                 parameters.DbConnection.UserName,
-                                                parameters.DbConnection.Password);
+                                                parameters.DbConnection.Password,
+                                                parameters.DbConnection.UseSsl);
 
             // Initialize the filter
             var filter = parameters.FilterString;

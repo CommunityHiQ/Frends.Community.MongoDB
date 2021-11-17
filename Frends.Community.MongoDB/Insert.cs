@@ -18,7 +18,7 @@ namespace Frends.Community.MongoDB
             /// The document to insert to the collection, as a JSON string
             /// </summary>
             [DisplayName("Document")]
-            [DefaultValue("{ 'foo':'bar', 'bar': 'foo' }")]
+            [DefaultValue("{ \"foo\": \"bar\", \"bar\": \"foo\" }")]
             public string Document { get; set; }
         }
 
@@ -35,7 +35,8 @@ namespace Frends.Community.MongoDB
                                                 parameters.DbConnection.Database,
                                                 parameters.DbConnection.CollectionName,
                                                 parameters.DbConnection.UserName,
-                                                parameters.DbConnection.Password);
+                                                parameters.DbConnection.Password,
+                                                parameters.DbConnection.UseSsl);
 
             // Insert document
             var bsonDocument = BsonDocument.Parse(parameters.Document);

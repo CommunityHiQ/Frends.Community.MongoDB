@@ -14,10 +14,10 @@ namespace Frends.Community.MongoDB
             public DatabaseConnection DbConnection { get; set; }
 
             /// <summary>
-            /// The filter to match documents to, in JSON
+            /// The filter to use, in JSON. Note that ObjectId is not strictly valid json, but works in MongoDB.
             /// </summary>
             [DisplayName("Filter")]
-            [DefaultValue("{ 'foo':'bar', 'bar': 'foo' }")]
+            [DefaultValue("{ \"_id\": ObjectId(\"...\") }")]
             public string FilterString { get; set; }
         }
 
@@ -34,7 +34,8 @@ namespace Frends.Community.MongoDB
                                                 parameters.DbConnection.Database,
                                                 parameters.DbConnection.CollectionName,
                                                 parameters.DbConnection.UserName,
-                                                parameters.DbConnection.Password);
+                                                parameters.DbConnection.Password,
+                                                parameters.DbConnection.UseSsl);
 
             // Initialize the filter
             var filter = parameters.FilterString;

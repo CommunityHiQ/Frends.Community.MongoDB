@@ -43,7 +43,8 @@ namespace Frends.Community.MongoDB.GridFS
                                                 parameters.DbConnection.Database,
                                                 parameters.DbConnection.CollectionName,
                                                 parameters.DbConnection.UserName,
-                                                parameters.DbConnection.Password);
+                                                parameters.DbConnection.Password,
+                                                parameters.DbConnection.UseSsl);
 
             // Convert the document to bytes so it can be saved to Mongo/GridFS
             byte[] documentAsBytes = Encoding.UTF8.GetBytes(parameters.Document);

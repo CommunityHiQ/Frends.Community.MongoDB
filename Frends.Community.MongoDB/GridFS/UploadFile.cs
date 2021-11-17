@@ -36,7 +36,8 @@ namespace Frends.Community.MongoDB.GridFS
                 parameters.DbConnection.Database,
                 parameters.DbConnection.CollectionName,
                 parameters.DbConnection.UserName,
-                parameters.DbConnection.Password);
+                parameters.DbConnection.Password,
+                parameters.DbConnection.UseSsl);
 
             var fileName = Path.GetFileName(parameters.FilePath);
             string id;

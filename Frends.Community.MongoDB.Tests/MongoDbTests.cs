@@ -46,12 +46,12 @@ namespace Frends.Community.MongoDB.Tests
 
         static readonly DatabaseConnection DatabaseConnectionInstance = new DatabaseConnection
         {
-            ServerAddress = "localhost",
-            ServerPort = "27017",
-            Database = "mongo_tests",
-            CollectionName = "test_collection",
-            UserName = "",
-            Password = ""
+            ServerAddress = "mongodbtask.mongo.cosmos.azure.com",
+            ServerPort = "10255",
+            Database = "testdb",
+            CollectionName = "testcoll",
+            UserName = "mongodbtask",
+            Password = "zt9HmLGh9zVdY5fXBT7EvsAqtIrvzCjjd2DBYX5L1JCP38MwHUEcJEtvvo717wM5beAXvE19eFVspOXksaljNg=="
         };
 
     #region Mongo
@@ -61,7 +61,7 @@ namespace Frends.Community.MongoDB.Tests
             Insert.InsertParameters parameters = new Insert.InsertParameters
             {
                 DbConnection = DatabaseConnectionInstance,
-                Document = "{ 'foo':'barf', 'bar': 'foo' }"
+                Document = "{ \"foo\":\"bar\", \"bar\": \"foo\" }"
             };
 
             string s = Insert.InsertDocument(parameters);

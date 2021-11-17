@@ -12,6 +12,13 @@ namespace Frends.Community.MongoDB.Helpers
         public string ServerAddress { get; set; }
 
         /// <summary>
+        /// Whether to use SSL or not
+        /// </summary>
+        [DisplayName("Use SSL")]
+        [DefaultValue(true)]
+        public bool UseSsl { get; set; }
+
+        /// <summary>
         /// The port used to connect to the MongoDB server
         /// </summary>
         [DisplayName("Server Port")]
@@ -42,6 +49,7 @@ namespace Frends.Community.MongoDB.Helpers
         /// The password to use when connecting to Mongo
         /// </summary>
         [DisplayName("Password")]
+        [PasswordPropertyText(true)]
         public string Password { get; set; }
     }
 }

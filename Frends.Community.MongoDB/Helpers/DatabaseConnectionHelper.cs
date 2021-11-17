@@ -16,7 +16,7 @@ namespace Frends.Community.MongoDB.Helpers
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
         /// <returns>A IMongoDatabase instance with the database connection</returns>
-        public IMongoDatabase GetMongoDatabase(string serverAddress, string serverPort, string database, string username, string password)
+        public IMongoDatabase GetMongoDatabase(string serverAddress, string serverPort, string database, string username, string password, bool useSsl)
         {
             // Establish the connection:
             var credentials = MongoCredential.CreateMongoCRCredential(database, username, password);
@@ -24,7 +24,8 @@ namespace Frends.Community.MongoDB.Helpers
             var clientSettings = new MongoClientSettings
             {
                 Credential = string.IsNullOrEmpty(username) ? null : credentials,
-                Server = new MongoServerAddress(serverAddress, Convert.ToInt32(serverPort))
+                Server = new MongoServerAddress(serverAddress, Convert.ToInt32(serverPort)),
+                UseSsl = useSsl
             };
 
             MongoClient mongoClient = new MongoClient(clientSettings);
@@ -42,9 +43,9 @@ namespace Frends.Community.MongoDB.Helpers
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
         /// <returns>A IMongoCollection instance with the connection to the collection</returns>
-        public IMongoCollection<BsonDocument> GetMongoCollection(string serverAddress, string serverPort, string database, string collectionName, string username, string password)
+        public IMongoCollection<BsonDocument> GetMongoCollection(string serverAddress, string serverPort, string database, string collectionName, string username, string password, bool useSsl)
         {
-            var dataBase = GetMongoDatabase(serverAddress, serverPort, database, username, password);
+            var dataBase = GetMongoDatabase(serverAddress, serverPort, database, username, password, useSsl);
             var collection = dataBase.GetCollection<BsonDocument>(collectionName);
 
             return collection;
@@ -60,9 +61,9 @@ namespace Frends.Community.MongoDB.Helpers
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
         /// <returns>a GridFSBucket with an active connection</returns>
-        public GridFSBucket GetGridFSBucket(string serverAddress, string serverPort, string database, string bucketName, string username, string password)
+        public GridFSBucket GetGridFSBucket(string serverAddress, string serverPort, string database, string bucketName, string username, string password, bool useSsl)
         {
-            var mongoDatabase = GetMongoDatabase(serverAddress, serverPort, database, username, password);
+            var mongoDatabase = GetMongoDatabase(serverAddress, serverPort, database, username, password, useSsl);
 
             var bucket = new GridFSBucket(mongoDatabase, new GridFSBucketOptions
             {
