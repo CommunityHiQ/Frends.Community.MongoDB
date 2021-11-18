@@ -46,12 +46,12 @@ namespace Frends.Community.MongoDB.Tests
 
         static readonly DatabaseConnection DatabaseConnectionInstance = new DatabaseConnection
         {
-            ServerAddress = "mongodbtask.mongo.cosmos.azure.com",
+            ServerAddress = "",
             ServerPort = "10255",
             Database = "testdb",
             CollectionName = "testcoll",
-            UserName = "mongodbtask",
-            Password = "zt9HmLGh9zVdY5fXBT7EvsAqtIrvzCjjd2DBYX5L1JCP38MwHUEcJEtvvo717wM5beAXvE19eFVspOXksaljNg=="
+            UserName = "",
+            Password = ""
         };
 
     #region Mongo
