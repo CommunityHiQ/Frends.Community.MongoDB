@@ -5,25 +5,10 @@ namespace Frends.Community.MongoDB.Helpers
     public class DatabaseConnection
     {
         /// <summary>
-        /// The address of the MongoDB server
+        /// Connection string to the database.
         /// </summary>
-        [DisplayName("Server Address")]
-        [DefaultValue("serverName")]
-        public string ServerAddress { get; set; }
-
-        /// <summary>
-        /// Whether to use SSL or not
-        /// </summary>
-        [DisplayName("Use SSL")]
-        [DefaultValue(true)]
-        public bool UseSsl { get; set; }
-
-        /// <summary>
-        /// The port used to connect to the MongoDB server
-        /// </summary>
-        [DisplayName("Server Port")]
-        [DefaultValue("")]
-        public string ServerPort { get; set; }
+        [PasswordPropertyText]
+        public string ConnectionString { get; set; }
 
         /// <summary>
         /// The database to connect to
@@ -38,18 +23,5 @@ namespace Frends.Community.MongoDB.Helpers
         [DisplayName("Collection Name")]
         [DefaultValue("")]
         public string CollectionName { get; set; }
-
-        /// <summary>
-        /// The username to use when connecting to Mongo
-        /// </summary>
-        [DisplayName("Username")]
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// The password to use when connecting to Mongo
-        /// </summary>
-        [DisplayName("Password")]
-        [PasswordPropertyText(true)]
-        public string Password { get; set; }
     }
 }

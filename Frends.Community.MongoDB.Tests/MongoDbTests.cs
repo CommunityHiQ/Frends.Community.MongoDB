@@ -46,12 +46,9 @@ namespace Frends.Community.MongoDB.Tests
 
         static readonly DatabaseConnection DatabaseConnectionInstance = new DatabaseConnection
         {
-            ServerAddress = "",
-            ServerPort = "10255",
+            ConnectionString = "",
             Database = "testdb",
             CollectionName = "testcoll",
-            UserName = "",
-            Password = ""
         };
 
     #region Mongo

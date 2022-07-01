@@ -38,13 +38,9 @@ namespace Frends.Community.MongoDB.GridFS
         {
             var helper = new DatabaseConnectionHelper();
 
-            var bucket = helper.GetGridFSBucket(parameters.DbConnection.ServerAddress,
-                                                parameters.DbConnection.ServerPort,
+            var bucket = helper.GetGridFSBucket(parameters.DbConnection.ConnectionString,
                                                 parameters.DbConnection.Database,
-                                                parameters.DbConnection.CollectionName,
-                                                parameters.DbConnection.UserName,
-                                                parameters.DbConnection.Password,
-                                                parameters.DbConnection.UseSsl);
+                                                parameters.DbConnection.CollectionName);
 
             // Convert the document to bytes so it can be saved to Mongo/GridFS
             byte[] documentAsBytes = Encoding.UTF8.GetBytes(parameters.Document);

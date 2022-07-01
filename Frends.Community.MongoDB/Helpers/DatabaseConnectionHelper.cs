@@ -10,25 +10,12 @@ namespace Frends.Community.MongoDB.Helpers
         /// <summary>
         /// Creates a connection to the MongoDB database
         /// </summary>
-        /// <param name="serverAddress">Server address</param>
-        /// <param name="serverPort">Server port</param>
+        /// <param name="connectionString">Connection string to the database.</param>
         /// <param name="database">Database name</param>
-        /// <param name="username">Username</param>
-        /// <param name="password">Password</param>
         /// <returns>A IMongoDatabase instance with the database connection</returns>
-        public IMongoDatabase GetMongoDatabase(string serverAddress, string serverPort, string database, string username, string password, bool useSsl)
+        public IMongoDatabase GetMongoDatabase(string connectionString, string database)
         {
-            // Establish the connection:
-            var credentials = MongoCredential.CreateMongoCRCredential(database, username, password);
-            
-            var clientSettings = new MongoClientSettings
-            {
-                Credential = string.IsNullOrEmpty(username) ? null : credentials,
-                Server = new MongoServerAddress(serverAddress, Convert.ToInt32(serverPort)),
-                UseSsl = useSsl
-            };
-
-            MongoClient mongoClient = new MongoClient(clientSettings);
+            MongoClient mongoClient = new MongoClient(connectionString);
             var dataBase = mongoClient.GetDatabase(database);
             return dataBase;
         }
@@ -36,16 +23,13 @@ namespace Frends.Community.MongoDB.Helpers
         /// <summary>
         /// Creates a connection to the MongoDB database and returns a connection to a MongoDB collection
         /// </summary>
-        /// <param name="serverAddress">server name</param>
-        /// <param name="serverPort">server port</param>
+        /// <param name="connectionString">Connection string to the database.</param>
         /// <param name="database">database name</param>
         /// <param name="collectionName">collection name</param>
-        /// <param name="username">Username</param>
-        /// <param name="password">Password</param>
         /// <returns>A IMongoCollection instance with the connection to the collection</returns>
-        public IMongoCollection<BsonDocument> GetMongoCollection(string serverAddress, string serverPort, string database, string collectionName, string username, string password, bool useSsl)
+        public IMongoCollection<BsonDocument> GetMongoCollection(string connectionString, string database, string collectionName)
         {
-            var dataBase = GetMongoDatabase(serverAddress, serverPort, database, username, password, useSsl);
+            var dataBase = GetMongoDatabase(connectionString, database);
             var collection = dataBase.GetCollection<BsonDocument>(collectionName);
 
             return collection;
@@ -54,16 +38,13 @@ namespace Frends.Community.MongoDB.Helpers
         /// <summary>
         /// Returns a GridFS bucket with an open connection to Mongo
         /// </summary>
-        /// <param name="serverAddress">server address</param>
-        /// <param name="serverPort">server port</param>
+        /// <param name="connectionString">Connection string to the database.</param>
         /// <param name="database">database name</param>
         /// <param name="bucketName">the name of the bucket (collection) to operate on</param>
-        /// <param name="username">Username</param>
-        /// <param name="password">Password</param>
         /// <returns>a GridFSBucket with an active connection</returns>
-        public GridFSBucket GetGridFSBucket(string serverAddress, string serverPort, string database, string bucketName, string username, string password, bool useSsl)
+        public GridFSBucket GetGridFSBucket(string connectionString, string database, string bucketName)
         {
-            var mongoDatabase = GetMongoDatabase(serverAddress, serverPort, database, username, password, useSsl);
+            var mongoDatabase = GetMongoDatabase(connectionString, database);
 
             var bucket = new GridFSBucket(mongoDatabase, new GridFSBucketOptions
             {

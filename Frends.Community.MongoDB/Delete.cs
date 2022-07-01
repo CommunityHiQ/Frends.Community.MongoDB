@@ -29,13 +29,9 @@ namespace Frends.Community.MongoDB
         public static long DeleteDocuments(DeleteParameters parameters)
         {
             var helper = new DatabaseConnectionHelper();
-            var collection = helper.GetMongoCollection(parameters.DbConnection.ServerAddress,
-                                                parameters.DbConnection.ServerPort,
+            var collection = helper.GetMongoCollection(parameters.DbConnection.ConnectionString,
                                                 parameters.DbConnection.Database,
-                                                parameters.DbConnection.CollectionName,
-                                                parameters.DbConnection.UserName,
-                                                parameters.DbConnection.Password,
-                                                parameters.DbConnection.UseSsl);
+                                                parameters.DbConnection.CollectionName);
 
             // Initialize the filter
             var filter = parameters.FilterString;
